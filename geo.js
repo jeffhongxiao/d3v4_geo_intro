@@ -4,7 +4,7 @@
 var svg = d3.select("svg");
 
 // TODO: change flag to change projection
-var useAE = false;
+var useAE = true;
 var projection = d3.geoMercator();
 if (useAE) {
   var width = +svg.attr("width");
@@ -13,8 +13,8 @@ if (useAE) {
   projection = d3
     .geoAzimuthalEquidistant()
     .scale(150)
-    .translate([width / 2, height / 2])
-    .rotate([122.4194, -37.7749])
+    // .translate([width / 2, height / 2])
+    // .rotate([122.4194, -37.7749])
     .clipAngle(180 - 1e-3)
     .precision(0.1);
 }
@@ -59,6 +59,12 @@ if (drawAtlas) {
 
 // TODO: add circle at my city
 var circle = d3.geoCircle()
-  .center([36.109668, -95.940116])  // tool: https://www.latlong.net/
+  .center([-95.940116, 36.109668])  // [long, lat]; tool: https://www.latlong.net/
+  // .center([28.034088, -26.195246]) // Johannesburg (South Africa)
   .radius(1);
-path(circle());
+// path(circle());
+
+svg.append("path")
+  .attr("fill", "red")
+  .attr("d", path(circle()));
+
