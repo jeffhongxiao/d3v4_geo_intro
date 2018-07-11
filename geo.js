@@ -4,7 +4,7 @@
 var svg = d3.select("svg");
 
 // TODO: change flag to change projection
-var useAE = true;
+var useAE = false;
 var projection = d3.geoMercator();
 if (useAE) {
   var width = +svg.attr("width");
@@ -34,18 +34,15 @@ if (drawAtlas) {
   d3.json(url, function(error, world) {
     if (error) throw error;
 
-    // TODO: change flag to display land
-    var drawLand = false;
-    if (drawLand) {
-      svg
-        .insert("path", ".graticule")
-        .datum(topojson.feature(world, world.objects.land))
-        .attr("class", "land")
-        .attr("d", path);
-    }
+    // draw land, needed for draw country
+    svg
+    .insert("path", ".graticule")
+    .datum(topojson.feature(world, world.objects.land))
+    .attr("class", "land")
+    .attr("d", path);
 
     // TODO: change flag to display country
-    var drawCountry = false;
+    var drawCountry = true;
     if (drawCountry) {
       svg
         .insert("path", ".graticule")
