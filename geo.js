@@ -56,3 +56,9 @@ if (drawAtlas) {
     }
   });
 }
+
+// TODO: add circle at my city
+var circle = d3.geoCircle()
+  .center([36.109668, -95.940116])  // tool: https://www.latlong.net/
+  .radius(1);
+path(circle());
