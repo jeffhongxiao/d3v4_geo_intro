@@ -1,7 +1,6 @@
 // REF: https://bl.ocks.org/mbostock/3757110
 // SEE ALSO: http://d3indepth.com/geographic/
 
-var foo = d3.geoGraticule();
 var svg = d3.select("svg");
 
 // TODO: change flag to change projection
@@ -24,7 +23,7 @@ var path = d3.geoPath().projection(projection);
 
 svg
   .append("path")
-  .datum(foo()) // was: d3.geoGraticule10()
+  .datum(d3.geoGraticule10())
   .attr("class", "graticule")
   .attr("d", path);
 
@@ -35,20 +34,28 @@ if (drawAtlas) {
   d3.json(url, function(error, world) {
     if (error) throw error;
 
-    svg
-      .insert("path", ".graticule")
-      .datum(topojson.feature(world, world.objects.land))
-      .attr("class", "land")
-      .attr("d", path);
+    // TODO: change flag to display land
+    var drawLand = false;
+    if (drawLand) {
+      svg
+        .insert("path", ".graticule")
+        .datum(topojson.feature(world, world.objects.land))
+        .attr("class", "land")
+        .attr("d", path);
+    }
 
-    svg
-      .insert("path", ".graticule")
-      .datum(
-        topojson.mesh(world, world.objects.countries, function(a, b) {
-          return a !== b;
-        })
-      )
-      .attr("class", "boundary")
-      .attr("d", path);
+    // TODO: change flag to display country
+    var drawCountry = false;
+    if (drawCountry) {
+      svg
+        .insert("path", ".graticule")
+        .datum(
+          topojson.mesh(world, world.objects.countries, function(a, b) {
+            return a !== b;
+          })
+        )
+        .attr("class", "boundary")
+        .attr("d", path);
+    }
   });
 }
