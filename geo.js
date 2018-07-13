@@ -4,7 +4,7 @@
 var svg = d3.select("svg");
 
 // TODO: change flag to change projection
-var useAE = true;
+var useAE = false;
 var projection = d3.geoMercator();
 if (useAE) {
   var width = +svg.attr("width");
